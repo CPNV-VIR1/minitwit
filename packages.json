@@ -1,0 +1,7 @@
+{
+    "name" : "minitwite",
+    "workspaces": [
+        "apps/api",
+        "apps/frontend"
+    ]
+}
