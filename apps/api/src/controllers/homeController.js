@@ -1,5 +1,5 @@
-export const home = (req, res) => {
+export const home = async (req, res) => {
   // set the status code and content-type
   res.writeHead(200, { "Content-Type": "application/json" }) // send data
-  res.end(JSON.stringify({ foo: "fii" }))
+  res.end(JSON.stringify(posts))
 }
