@@ -1,7 +1,7 @@
-import { home } from "../controllers/homeController.js"
+import { findAll } from "../controllers/postController.js"
 
 const setupRoutes = (router) => {
-  router.add("GET", "/", home)
+  router.add("GET", "/posts", findAll)
 }
 
 export default setupRoutes
