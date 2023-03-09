@@ -1,5 +1,5 @@
 import http from "http"
-
+import { cors } from "../config/cors.js"
 export default class Router {
   #routes = []
   #port
@@ -42,6 +42,15 @@ export default class Router {
           })
 
           if (matchedRoute) {
+            const origin = req.headers.host.toLowerCase()
+            const url = cors.includes(origin) ? origin : cors[0]
+
+            res.writeHead(200, {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": `http://${url}`,
+              "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+              "Access-Control-Max-Age": 2592000, // 30 days
+            })
             matchedRoute.callback(req, res, ...matchedRoute.params)
           } else {
             res.writeHead(404, { "Content-Type": "text/plain" })
