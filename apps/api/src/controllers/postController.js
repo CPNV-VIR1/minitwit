@@ -1,4 +1,4 @@
-import { Post } from "../models/post.js"
+import {Post} from "../models/post.js"
 
 export const findAll = async (req, res) => {
   // set the status code and content-type
@@ -14,7 +14,7 @@ export const findOne = async (req, res, id) => {
 export const create = async (req, res) => {
   if (!req.body.content) {
     res.writeHead(400)
-    res.res.end(
+    res.end(
       JSON.stringify({
         message: "content cannot be null.",
       })
