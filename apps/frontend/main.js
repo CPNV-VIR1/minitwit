@@ -10,7 +10,7 @@ selectLanguage.addEventListener("change", (e) => {
 })
 
 const changeLanguage = async () => {
-  const lang = await import(`./locale/i18n/${selectedLanguage}`)
+  const lang = await import(`./locale/i18n/${selectedLanguage}.json`)
   document.querySelector(".btn__send").value = lang.btnSend
 }
 
