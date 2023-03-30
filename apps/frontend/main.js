@@ -1,34 +1,9 @@
 import "./resources/css/style.css"
-import PostsServices from "./resources/services/posts.js"
-import { dates } from "@cpnv/dates"
+import { displayMessages } from "./services/messages"
+import { setupI18n } from "./services/languages"
 
 const selectLanguage = document.querySelector(".header__language")
-let selectedLanguage = selectLanguage.value
-
-selectLanguage.addEventListener("change", (e) => {
-  selectedLanguage = e.target.value
-  changeLanguage()
-})
-
-const changeLanguage = async () => {
-  const lang = await import(`./locale/i18n/${selectedLanguage}.json`)
-  document.querySelector(".btn__send").value = lang.btnSend
-}
-
-const displayMessages = async () => {
-  const messages = (await PostsServices.getAll()).reverse()
-  const divContent = document.querySelector(".messages__content")
-  divContent.innerHTML = ""
-
-  messages.forEach((message) => {
-    const divMessage = document.createElement("div")
-    divMessage.classList.add("message")
-    divMessage.innerHTML = `<span class='timestamp'>${dates(message.createdAt).format("DD.MM - hh:mm")}</span> - ${
-      message.content
-    }`
-    divContent.appendChild(divMessage)
-  })
-}
+setupI18n(selectLanguage)
 
 const createMessage = async (message) => {
   await PostsServices.create({ content: message })
