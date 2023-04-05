@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Minitwite</title>
     <script type="module" src="/main.js" defer></script>
-  </head>
-  <body>
-    <div id="app">
-      
+</head>
+<body>
+<div id="app">
+    <header class="header">
+        <span class="header__logo">MiniTwit</span>
+        <select class="header__language">
+            <option value="fr-FR">Français</option>
+            <option value="en-EN">English</option>
+            <option value="ru-RU">Русский</option>
+        </select>
+    </header>
+    <div class="container">
+        <h1>MiniTwite !</h1>
+        <div class="messages">
+            <div class="messages__content">
+                <div class="message">
+                    Chargement en cours...
+                </div>
+            </div>
+            <div class="messages__bottom">
+                <input type="text" class="message__input"/>
+                <input type="button" class="btn__send" value="Envoyer">
+            </div>
+        </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

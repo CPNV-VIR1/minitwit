@@ -1,7 +1,10 @@
 {
-    "name" : "minitwite",
+    "name": "minitwite",
     "workspaces": [
         "apps/api",
         "apps/frontend"
-    ]
+    ],
+    "dependencies": {
+        "moment": "^2.29.4"
+    }
 }
