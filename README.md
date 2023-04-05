@@ -91,3 +91,7 @@ npm run test -w apps/frontend
 ## Git
 
 Nous utilisons ```git flow``` et développons sur la branche ```develop```. Chaque fonctionnalité est faite sur une branche à part avec le préfixe adéquat. Ensuite une fois la fonctionnalité finie, un pull request est fait sur la branch develop est une autre personne la contrôle et l'accepte ou non.
+
+# Stucture du code
+
+Le code se divise en 2 parties, la partie backend dans apps/api et la partie frontend dans apps/frontend. On utilise les workspaces de npm pour séparer la partie frontend de la partie backend
