@@ -1,4 +1,4 @@
-import {Post} from "../models/post.js"
+import { Post } from "../models/post.js"
 
 export const findAll = async (req, res) => {
   // set the status code and content-type

@@ -1,30 +1,58 @@
-'use strict'
+import { jest } from "@jest/globals"
+import { create } from "../controllers/postController"
+import { Post } from "../models/post"
 
-import { sequelize } from '../config/database.js'
-import { Post } from '../models'
+const mockCreate = jest.fn().mocked
+Post.create = mockCreate
 
-describe('Testing', () => {
-  let mockedSequelize
+describe("create method", () => {
+  test("should create a post with valid content", async () => {
+    const content = "This is a valid post."
 
-  beforeEach(async () => {
-    mockedSequelize = sequelize
-    mockedSequelize.validateOnly = true
-    await mockedSequelize.sync({ force: true })
+    Post.create = jest.fn().mockResolvedValue({
+      content,
+    })
+
+    const req = {
+      body: {
+        content,
+      },
+    }
+
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    }
+
+    await create(req, res)
+
+    expect(Post.create).toHaveBeenCalledWith({
+      content,
+    })
+
+    expect(res.end).toHaveBeenCalledWith(JSON.stringify({ content }))
   })
 
-  test('create_post', async () => {
+  test("should return an error with null content", async () => {
+    const req = {
+      body: {
+        content: null,
+      },
+    }
 
-    const post = await Post.create({ content: 'post 1' })
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    }
 
-    expect(1).toEqual(post.id)
-    expect('post 1').toEqual(post.content)
-  })
+    await create(req, res)
 
-  test('get_all', async () => {
-    await Post.create({ content: 'post1' })
-    await Post.create({ content: 'post2' })
-    const posts = await Post.findAll()
+    expect(res.writeHead).toHaveBeenCalledWith(400)
 
-    expect(2).toEqual(posts.length)
+    expect(res.end).toHaveBeenCalledWith(
+      JSON.stringify({
+        message: "content cannot be null.",
+      })
+    )
   })
 })
