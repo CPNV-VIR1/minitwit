@@ -144,8 +144,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
-
+  testEnvironment: "node",
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
 
@@ -172,9 +171,6 @@ export default {
   // This option allows use of a custom test runner
   // testRunner: "jest-circus/runner",
 
-  // A map from regular expressions to paths to transformers
-  // transform: undefined,
-
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
   //   "/node_modules/",
@@ -192,4 +188,9 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+
+  transform: {
+    "^.+\\.jsx?$": "babel-jest",
+  },
+  testEnvironment: "jsdom",
+}

@@ -1,6 +1,7 @@
 import "./resources/css/style.css"
 import { displayMessages } from "./services/messages"
 import { setupI18n } from "./services/languages"
+import PostsServices from "./services/posts"
 
 const selectLanguage = document.querySelector(".header__language")
 setupI18n(selectLanguage)

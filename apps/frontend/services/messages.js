@@ -1,4 +1,4 @@
-import { dates } from "@cpnv/dates"
+import dates from "moment"
 import PostsServices from "../services/posts.js"
 
 export const displayMessages = async () => {

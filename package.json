@@ -2,8 +2,7 @@
     "name": "minitwite",
     "workspaces": [
         "apps/api",
-        "apps/frontend",
-        "packages/dates"
+        "apps/frontend"
     ],
     "dependencies": {
         "moment": "^2.29.4"
