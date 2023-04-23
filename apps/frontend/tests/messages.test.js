@@ -16,7 +16,7 @@ describe("displayMessages", () => {
     await displayMessages()
 
     expect(divContent.innerHTML.trim()).toEqual(
-      '<div class="message"><span class="timestamp">'+dates(dateNow).format("DD.MM - hh:mm")+'</span> - Message 1</div>'
+      '<div class="message"><span class="timestamp">'+dates(dateNow).format("DD.MM - hh:mm")+'</span> - Message 11</div>'
     )
   })
 })
