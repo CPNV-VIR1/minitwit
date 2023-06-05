@@ -4,7 +4,7 @@ import setupRoutes from "./routes/routes.js"
 import { sequelize } from "./config/database.js"
 
 dotenv.config()
-const port = process.env.PORT || 8080
+const port = process.env.PORT
 const router = new Router(port, "/api/v1")
 setupRoutes(router)
 sequelize.sync()

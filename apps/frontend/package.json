@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest"
@@ -16,5 +16,8 @@
     "jest-environment-jsdom": "^29.5.0",
     "jsdom": "^21.1.1",
     "vite": "^4.1.0"
+  },
+  "dependencies": {
+    "moment": "^2.29.4"
   }
 }
