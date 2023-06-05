@@ -1,5 +1,5 @@
 export default class PostsServices {
-  static #url = "http://localhost:8080/api/v1"
+  static #url = import.meta.env.VITE_API_URL
 
   static async getAll() {
     return await (await fetch(`${this.#url}/posts`)).json()

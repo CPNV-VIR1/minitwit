@@ -11,9 +11,9 @@ services:
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
       - "${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}"
-  backend:
+  api:
     build: /apps/api
-    container_name: backend
+    container_name: api
     env_file:
       - ./.env
     ports:
@@ -24,7 +24,6 @@ services:
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
       - PORT=$NODE_API_DOCKER_PORT
-
   frontend:
     build: /apps/frontend
     container_name: frontend
@@ -33,4 +32,4 @@ services:
     ports:
       - "${NODE_FRONTEND_LOCAL_PORT}:${NODE_FRONTEND_DOCKER_PORT}"
     environment:
-      - VITE_API_URL= backend
+      - VITE_API_URL=http://localhost:${NODE_API_LOCAL_PORT}/api/v1
