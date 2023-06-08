@@ -1,21 +1,26 @@
 version: "2.2"
 
 services:
+  #docker volume create mysql_data
+  #docker run -d --name mysql -v mysql_data:/var/lib/mysql -v mysql_config:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=minitwit -p 3306:3306  mysql:8.0
   mysql:
     container_name: mysql
     image: mysql:8.0
-    env_file:
-      - ./.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
       - "${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}"
+  #docker build -t api ./apps/api
+  #docker run -d --name api --link mysql -e DB_HOST=mysql -e DB_USER=root -e DB_PASSWORD=1234 -e DB_NAME=minitwit -e PORT=3000 -p 3000:3000 api
   api:
-    build: /apps/api
+    image: samuelmichaud/minitwit-api
     container_name: api
-    env_file:
-      - ./.env
+    depends_on:
+      - mysql
     ports:
       - "${NODE_API_LOCAL_PORT}:${NODE_API_DOCKER_PORT}"
     environment:
@@ -24,12 +29,15 @@ services:
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
       - PORT=$NODE_API_DOCKER_PORT
+  #docker build -t frontend ./apps/frontend
+  #docker run -d --name frontend -p 5173:5173 -e VITE_API_URL="http://localhost:3000/api/v1" frontend
   frontend:
-    build: /apps/frontend
+    image: samuelmichaud/minitwit-frontend
     container_name: frontend
-    env_file:
-      - ./.env
     ports:
       - "${NODE_FRONTEND_LOCAL_PORT}:${NODE_FRONTEND_DOCKER_PORT}"
     environment:
       - VITE_API_URL=http://localhost:${NODE_API_LOCAL_PORT}/api/v1
+volumes:
+  mysql_data:
+  mysql_config:
