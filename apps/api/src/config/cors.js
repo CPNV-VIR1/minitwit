@@ -1,1 +1,1 @@
-export const cors = ["localhost:5173"]
+export const cors = ["localhost", "127.0.0.1", "localhost:80", "127.0.0.1:80"]

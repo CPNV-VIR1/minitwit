@@ -1,13 +1,13 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18-alpine
-
+FROM node:18-alpine as builder
+ENV VITE_API_URL http://localhost:3000/api/v1
 WORKDIR /app
-
-COPY ["package.json", "package-lock.json*", "./"]
-
+COPY . /app
 RUN npm install
+RUN npm run build
 
-COPY . .
-
-CMD ["npm", "run", "dev"]
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]

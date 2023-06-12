@@ -42,12 +42,15 @@ export default class Router {
           })
 
           if (matchedRoute) {
-            const origin = req.headers.host.toLowerCase()
+
+            const splitedOrigin = req.headers.origin.toLowerCase().split('://')
+            const origin = splitedOrigin[1]
+            const method = splitedOrigin[0]
             const url = cors.includes(origin) ? origin : cors[0]
 
             res.writeHead(200, {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": `http://${url}`,
+              "Access-Control-Allow-Origin": `${method}://${url}`,
               "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
               "Access-Control-Max-Age": 2592000, // 30 days
             })
