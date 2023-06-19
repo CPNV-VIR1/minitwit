@@ -42,8 +42,8 @@ export default class Router {
           })
 
           if (matchedRoute) {
-
-            const splitedOrigin = req.headers.origin.toLowerCase().split('://')
+            const header = req.headers.origin ?? req.headers.referer;
+            const splitedOrigin = header.toLowerCase()?.split('://')
             const origin = splitedOrigin[1]
             const method = splitedOrigin[0]
             const url = cors.includes(origin) ? origin : cors[0]

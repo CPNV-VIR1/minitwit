@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM node:18-alpine as builder
-ENV VITE_API_URL http://localhost:3000/api/v1
+ENV VITE_API_URL http://minitwit.cld.education:80/api/v1
 WORKDIR /app
 COPY . /app
 RUN npm install
