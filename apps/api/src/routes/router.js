@@ -42,7 +42,7 @@ export default class Router {
           })
 
           if (matchedRoute) {
-            const header = req.headers.origin ?? req.headers.referer;
+            const header = req.headers.origin ?? req.headers.referer ?? `http://${req.headers.host}`;
             const splitedOrigin = header.toLowerCase()?.split('://')
             const origin = splitedOrigin[1]
             const method = splitedOrigin[0]
