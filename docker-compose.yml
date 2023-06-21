@@ -17,12 +17,11 @@ services:
   #docker build -t api ./apps/api
   #docker run -d --name api --link mysql -e DB_HOST=mysql -e DB_USER=root -e DB_PASSWORD=1234 -e DB_NAME=minitwit -e PORT=3000 -p 3000:3000 api
   api:
-    image: samuelmichaud/minitwit-api
+    image: samuelmichaud/minitwit-api:prod
+    build: ./apps/api
     container_name: api
     depends_on:
       - mysql
-    ports:
-      - "3000:3000"
     environment:
       - DB_HOST=mysql
       - DB_USER=root
@@ -32,14 +31,15 @@ services:
   #docker build -t frontend ./apps/frontend
   #docker run -d --name frontend -p 5173:5173 -e VITE_API_URL="http://localhost:3000/api/v1" frontend
   frontend:
-    image: samuelmichaud/minitwit-frontend
+    image: samuelmichaud/minitwit-frontend:prod
+    build: ./apps/frontend
     container_name: frontend
+  nginx:
+    image: nginx
     ports:
       - "80:80"
-    environment:
-      - VITE_API_URL=http://localhost:3000/api/v1
     volumes:
-      - './apps/frontend/nginx-conf/default.conf:/etc/nginx/conf.d/default.conf'
+      - './nginx-conf/default.conf:/etc/nginx/conf.d/default.conf'
 volumes:
   mysql_data:
   mysql_config:
